@@ -167,7 +167,7 @@ class Level:
         if "featured" in data:
             self.featured = True
         else:
-            self.featured = self in self._state._featured_cache["featured"]
+            self.featured = self in self._state._featured_cache
 
         self._average_rating = None
 

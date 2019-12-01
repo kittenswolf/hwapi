@@ -14,7 +14,7 @@ from . import models
 
 class client:
 
-    def __init__(self, *, useragent, timeout=5, delay=1, max_tries=5, user_cache_maxsize=300, user_cache_ttl=60, featured_cache_ttl=3600):
+    def __init__(self, *, useragent, timeout=5, delay=1, max_tries=5, user_cache_maxsize=300, user_cache_ttl=60):
         self.SORTED_BY_POSS = ["newest", "oldest", "plays", "rating"]
         self.UPLOADED_BY_POSS = ["today", "week", "month", "anytime"]
         self.REPLAY_SORTED_BY_POSS = ["completion_time", "newest", "oldest", "rating"]
@@ -26,7 +26,7 @@ class client:
 
         self._last_request = 0
         self._user_cache = cachetools.TTLCache(maxsize=user_cache_maxsize, ttl=user_cache_ttl)
-        self._featured_cache = cachetools.TTLCache(maxsize=1, ttl=featured_cache_ttl)
+        self._featured_cache = []
 
     async def _ensure_delay(self):
         if time.time() - self._last_request < self.delay:
@@ -292,8 +292,8 @@ class client:
                 page += 1
 
     async def featured_levels(self, fetch=True):
-        if "featured" in self._featured_cache:
-            return self._featured_cache["featured"]
+        if len(self._featured_cache) > 0:
+            return self._featured_cache
         else:
             payload = {'action': 'get_featured'}
 
@@ -309,14 +309,14 @@ class client:
                 )
                 featured_levels.append(parsed_level)
 
-            self._featured_cache["featured"] = featured_levels
+            self._featured_cache = featured_levels
             return featured_levels
 
     async def fetch_featured_levels(self):
         return await self.featured_levels(fetch=True)
 
     async def _ensure_featured_cache(self):
-        if not "featured" in self._featured_cache:
+        if not len(self._featured_cache) > 0:
             await self.featured_levels()
 
     async def _search(self, search_by, term, sorted_by, uploaded, page=1, single=False):
