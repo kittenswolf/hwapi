@@ -76,7 +76,7 @@ class client:
             'level_id': level_id
         }
 
-        raw_metadata = await self._fetch_post("http://www.totaljerkface.com/get_level.hw", payload)
+        raw_metadata = await self._fetch_post("https://totaljerkface.com/get_level.hw", payload)
         metadata_dict = xmltodict.parse(raw_metadata)
 
         return models.Level(
@@ -90,7 +90,7 @@ class client:
             'replay_id': replay_id
         }
 
-        raw_metadata = await self._fetch_post("http://www.totaljerkface.com/replay.hw", payload)
+        raw_metadata = await self._fetch_post("https://totaljerkface.com/replay.hw", payload)
         metadata_dict = xmltodict.parse(raw_metadata)
 
         return models.Replay(
@@ -106,7 +106,7 @@ class client:
             if user_id in self._user_cache:
                 return self._user_cache[user_id]
 
-        user_page_html = await self._fetch_get("http://www.totaljerkface.com/profile.tjf?uid={}".format(user_id))
+        user_page_html = await self._fetch_get("https://totaljerkface.com/profile.tjf?uid={}".format(user_id))
         soup = BeautifulSoup(user_page_html, "lxml")
 
         if soup.find("div", class_="header").text == "This user's account is not active.":
@@ -156,7 +156,7 @@ class client:
                 'sortby': sorted_by
             }
 
-            raw_metadata = await self._fetch_post("http://www.totaljerkface.com/get_level.hw", payload)
+            raw_metadata = await self._fetch_post("https://totaljerkface.com/get_level.hw", payload)
 
             try:
                 metadata_dict = xmltodict.parse(raw_metadata)
@@ -210,7 +210,7 @@ class client:
                 'page': page
             }
 
-            raw_metadata = await self._fetch_post("http://www.totaljerkface.com/get_level.hw", payload)
+            raw_metadata = await self._fetch_post("https://totaljerkface.com/get_level.hw", payload)
 
             try:
                 metadata_dict = xmltodict.parse(raw_metadata)
@@ -256,7 +256,7 @@ class client:
                 'sortby': sorted_by
             }
 
-            raw_metadata = await self._fetch_post("http://www.totaljerkface.com/replay.hw", payload)
+            raw_metadata = await self._fetch_post("https://totaljerkface.com/replay.hw", payload)
 
             try:
                 metadata_dict = xmltodict.parse(raw_metadata)
@@ -297,7 +297,7 @@ class client:
         else:
             payload = {'action': 'get_featured'}
 
-            raw_metadata = await self._fetch_post("http://www.totaljerkface.com/get_level.hw", payload)
+            raw_metadata = await self._fetch_post("https://totaljerkface.com/get_level.hw", payload)
             metadata_dict = xmltodict.parse(raw_metadata)
 
             featured_levels = []
@@ -339,7 +339,7 @@ class client:
                 'sortby': sorted_by
             }
 
-            raw_metadata = await self._fetch_post("http://www.totaljerkface.com/get_level.hw", payload)
+            raw_metadata = await self._fetch_post("https://totaljerkface.com/get_level.hw", payload)
 
             try:
                 metadata_dict = xmltodict.parse(raw_metadata)
