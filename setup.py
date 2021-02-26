@@ -21,7 +21,7 @@ setup(
     install_requires=[
         "cachetools==3.0.0",
         "xmltodict==0.12.0",
-        "aiohttp==3.4.4",
+        "aiohttp==3.7.4",
         "beautifulsoup4==4.7.1"
     ],
     python_requires='>=3.6.0',
