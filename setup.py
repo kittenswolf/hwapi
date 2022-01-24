@@ -8,7 +8,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='hwapi',
-    version='0.1.1',
+    version='0.1.3',
 
     description='Happy Wheels API Wrapper',
     long_description=long_description,
@@ -19,10 +19,10 @@ setup(
 
     packages=find_packages(),
     install_requires=[
-        "cachetools==3.0.0",
-        "xmltodict==0.12.0",
-        "aiohttp==3.4.4",
-        "beautifulsoup4==4.7.1"
+        "cachetools",
+        "xmltodict",
+        "aiohttp>3",
+        "beautifulsoup4>4, <5"
     ],
     python_requires='>=3.6.0',
     project_urls={
